@@ -18,11 +18,16 @@ export default function Home() {
 								Aplikasi yang berisi informasi mengenai instrumen tes
 								berdasarkan taksonomi bloom revisi dan cara penyusunannya
 							</p>
-							<button className='btn btn-primary mx-3 px-5'>Masuk</button>
-							<button className='btn btn-ghost mx-3 px-5'>Daftar</button>
+							<a href='/login'>
+								<button className='btn btn-primary mx-3 px-5'>Masuk</button>
+							</a>
+							<a href='/register'>
+								<button className='btn btn-ghost mx-3 px-5'>Daftar</button>
+							</a>
 						</div>
 					</div>
 				</div>
+				<div className=''></div>
 			</main>
 		</>
 	);
