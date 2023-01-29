@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Home() {
 	return (
@@ -18,12 +19,12 @@ export default function Home() {
 								Aplikasi yang berisi informasi mengenai instrumen tes
 								berdasarkan taksonomi bloom revisi dan cara penyusunannya
 							</p>
-							<a href='/login'>
+							<Link href='/login'>
 								<button className='btn btn-primary mx-3 px-5'>Masuk</button>
-							</a>
-							<a href='/register'>
+							</Link>
+							<Link href='/register'>
 								<button className='btn btn-ghost mx-3 px-5'>Daftar</button>
-							</a>
+							</Link>
 						</div>
 					</div>
 				</div>

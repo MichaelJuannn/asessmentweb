@@ -4,7 +4,7 @@ interface Form {
 	type: string;
 }
 
-export function FormInput({ label, type }: Form) {
+export function FormInput({ label, type, misc }: Form) {
 	return (
 		<>
 			<div className='form-control'>
