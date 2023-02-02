@@ -15,13 +15,16 @@ export default function Register() {
 						</div>
 						<div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
 							<div className='card-body'>
-								<FormInput label='username' type='text' />
-								<FormInput label='email' type='email' />
-								<FormInput label='password' type='password' />
-								<FormInput label='confirm password' type='password' />
-								<div className='form-control mt-6'>
-									<button className='btn btn-primary'>Daftar</button>
-								</div>
+								<form action='/api/register' method='POST'>
+									<FormInput label='username' type='text' />
+									<FormInput label='email' type='email' />
+									<FormInput label='password' type='password' />
+									<div className='form-control mt-6'>
+										<button className='btn btn-primary' type='submit'>
+											Daftar
+										</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>

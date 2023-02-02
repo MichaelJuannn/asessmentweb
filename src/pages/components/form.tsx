@@ -15,7 +15,7 @@ export function FormInput({ label, type, misc }: Form) {
 					name={label}
 					type={type}
 					placeholder={label}
-					className='input input-bordered capitalize'
+					className='input input-bordered'
 				/>
 			</div>
 		</>
