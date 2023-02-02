@@ -1,8 +1,12 @@
+import { useRouter } from 'next/router';
 import { FormInput } from './components/form';
 
 export default function Register() {
+	const router = useRouter();
+
 	return (
 		<>
+			{router.query.isError && <Error />}
 			<div>
 				<div className='hero min-h-screen bg-base-200'>
 					<div className='hero-content flex-col lg:flex-row-reverse'>
@@ -20,7 +24,10 @@ export default function Register() {
 									<FormInput label='email' type='email' />
 									<FormInput label='password' type='password' />
 									<div className='form-control mt-6'>
-										<button className='btn btn-primary' type='submit'>
+										<button
+											className='btn bg-main hover:bg-main-2'
+											type='submit'
+										>
 											Daftar
 										</button>
 									</div>
@@ -29,6 +36,16 @@ export default function Register() {
 						</div>
 					</div>
 				</div>
+			</div>
+		</>
+	);
+}
+
+function Error() {
+	return (
+		<>
+			<div className='text-xl text-center bg-red-400 shadow-inner p-2'>
+				There are some errors in your register information, please try again
 			</div>
 		</>
 	);

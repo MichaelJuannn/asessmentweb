@@ -1,10 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+type Data = {
+	username: string;
+	email: string;
+	password: string;
+};
+
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const data = req.body;
+	const data: Data = req.body;
 
 	const response = await fetch(
 		'https://deployasslink.pythonanywhere.com/auth/signup/validator/',
@@ -16,5 +22,7 @@ export default async function handler(
 			body: JSON.stringify(data),
 		}
 	);
-	res.status(200).redirect('/');
+
+	if (!response.ok) return res.redirect(302, `/register?isError=1`);
+	res.redirect(302, '/login?isSuccess=1');
 }
