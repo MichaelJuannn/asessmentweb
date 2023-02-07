@@ -7,6 +7,7 @@ export default function Login() {
 	return (
 		<>
 			{router.query.isSuccess && <Success />}
+			{router.query.isError && <Error />}
 			<div>
 				<div className='hero min-h-screen bg-base-200'>
 					<div className='hero-content flex-col lg:flex-row-reverse'>
@@ -19,11 +20,15 @@ export default function Login() {
 						</div>
 						<div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
 							<div className='card-body'>
-								<FormInput label='email' type='email' />
-								<FormInput label='password' type='password' />
-								<div className='form-control mt-6'>
-									<button className='btn bg-main hover:bg-main-2'>Login</button>
-								</div>
+								<form action='/api/login' method='POST'>
+									<FormInput label='email' type='email' />
+									<FormInput label='password' type='password' />
+									<div className='form-control mt-6'>
+										<button className='btn bg-main hover:bg-main-2'>
+											Login
+										</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -38,6 +43,15 @@ function Success() {
 		<>
 			<div className='text-xl text-center bg-success shadow-inner p-2'>
 				You successfuly registered your account, Please login to continue
+			</div>
+		</>
+	);
+}
+function Error() {
+	return (
+		<>
+			<div className='text-xl text-center bg-red-400 shadow-inner p-2'>
+				Failed to Login, Check your credentials
 			</div>
 		</>
 	);
