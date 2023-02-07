@@ -1,10 +1,15 @@
+import { FormEventHandler, useState } from 'react';
+
 interface Form {
 	label: string;
-	misc?: string;
+	handleChange: any;
 	type: string;
 }
 
-export function FormInput({ label, type, misc }: Form) {
+export function FormInput({ label, type, handleChange }: Form) {
+	const handleChildChange = (newValue: any) => {
+		handleChange(newValue, label);
+	};
 	return (
 		<>
 			<div className='form-control'>
@@ -16,6 +21,7 @@ export function FormInput({ label, type, misc }: Form) {
 					type={type}
 					placeholder={label}
 					className='input input-bordered'
+					onChange={(e) => handleChildChange(e.target.value)}
 				/>
 			</div>
 		</>

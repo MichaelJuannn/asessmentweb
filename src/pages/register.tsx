@@ -1,8 +1,20 @@
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { FormInput } from './components/form';
+
+interface NewValue {
+	[key: string]: string;
+}
 
 export default function Register() {
 	const router = useRouter();
+	const [formValue, setFormValue] = useState({});
+	const handleChange = (newInputForm: any, inputKey: string) => {
+		const newValue: NewValue = { ...formValue };
+		newValue[inputKey] = newInputForm;
+		setFormValue(newValue);
+	};
+	console.log(formValue);
 
 	return (
 		<>
@@ -20,9 +32,21 @@ export default function Register() {
 						<div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
 							<div className='card-body'>
 								<form action='/api/register' method='POST'>
-									<FormInput label='username' type='text' />
-									<FormInput label='email' type='email' />
-									<FormInput label='password' type='password' />
+									<FormInput
+										label='username'
+										type='text'
+										handleChange={handleChange}
+									/>
+									<FormInput
+										label='email'
+										type='email'
+										handleChange={handleChange}
+									/>
+									<FormInput
+										label='password'
+										type='password'
+										handleChange={handleChange}
+									/>
 									<div className='form-control mt-6'>
 										<button
 											className='btn bg-main hover:bg-main-2'
