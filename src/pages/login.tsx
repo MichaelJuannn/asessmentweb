@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { FormInput } from './components/form';
 
 interface NewValue {
@@ -14,7 +14,23 @@ export default function Login() {
 		newValue[inputKey] = newInputForm;
 		setFormValue(newValue);
 	};
-	console.log(formValue);
+
+	const submit = async (e: SyntheticEvent) => {
+		e.preventDefault();
+		console.log('submit func');
+
+		const response = await fetch(
+			'https://deployasslink.pythonanywhere.com/auth/signup/validator/',
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				credentials: 'include',
+				body: JSON.stringify(formValue),
+			}
+		);
+	};
 
 	return (
 		<>
@@ -32,7 +48,7 @@ export default function Login() {
 						</div>
 						<div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
 							<div className='card-body'>
-								<form action='/api/login' method='POST'>
+								<form onSubmit={submit} method='POST'>
 									<FormInput
 										label='email'
 										type='email'
