@@ -1,17 +1,5 @@
 import { GetServerSideProps } from 'next';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-	const response = await fetch(
-		'https://deployasslink.pythonanywhere.com/auth/login/validator/'
-	);
-	const data = await response.json();
-	console.log(data);
-
-	return {
-		props: { name: 'John Wall' },
-	};
-};
-
 export default function Dashboard(props: any) {
 	return (
 		<>

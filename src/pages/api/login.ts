@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
@@ -15,7 +14,10 @@ export default async function handler(
 			body: JSON.stringify(data),
 		}
 	);
+	const userJson = await response.json();
 	if (!response.ok) return res.redirect('/login?isError=1');
 
-	res.json(await response.json());
+	res.setHeader('Set-Cookie', userJson.tokens.access);
+	console.log(userJson.tokens.access);
+	res.redirect('/dashboard');
 }

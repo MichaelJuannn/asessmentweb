@@ -16,23 +16,6 @@ export default function Register() {
 		console.log(JSON.stringify(formValue));
 	};
 
-	const submit = async (e: SyntheticEvent) => {
-		e.preventDefault();
-		console.log('submit func');
-
-		const response = await fetch(
-			'https://deployasslink.pythonanywhere.com/auth/signup/validator/',
-			{
-				method: 'POST',
-				headers: {
-					'Access-Control-Allow-Origin': '*',
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(formValue),
-			}
-		);
-	};
-
 	return (
 		<>
 			{router.query.isError && <Error />}
@@ -40,7 +23,7 @@ export default function Register() {
 				<div className='hero min-h-screen bg-base-200'>
 					<div className='hero-content flex-col lg:flex-row-reverse'>
 						<div className='text-center lg:text-left'>
-							<h1 className='text-5xl font-bold'>Masuk Sekarang!</h1>
+							<h1 className='text-5xl font-bold'>Daftar Sekarang!</h1>
 							<p className='py-6'>
 								Daftarkan Diri Anda untuk mengakses Assessment Link menggunakan
 								Email dan Username
@@ -48,7 +31,7 @@ export default function Register() {
 						</div>
 						<div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
 							<div className='card-body'>
-								<form onSubmit={submit} method='POST'>
+								<form action='api/register' method='POST'>
 									<FormInput
 										label='username'
 										type='text'

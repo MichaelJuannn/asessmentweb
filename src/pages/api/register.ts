@@ -13,7 +13,7 @@ export default async function handler(
 	const data: Data = req.body;
 
 	const response = await fetch(
-		'https://deployasslink.pythonanywhere.com/auth/signup/validator/',
+		`${process.env.API_HOST}/auth/signup/validator/`,
 		{
 			method: 'POST',
 			headers: {

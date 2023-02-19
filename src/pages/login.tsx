@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { SyntheticEvent, useState } from 'react';
 import { FormInput } from './components/form';
@@ -14,22 +15,26 @@ export default function Login() {
 		newValue[inputKey] = newInputForm;
 		setFormValue(newValue);
 	};
-
 	const submit = async (e: SyntheticEvent) => {
 		e.preventDefault();
 		console.log('submit func');
 
-		const response = await fetch(
-			'https://deployasslink.pythonanywhere.com/auth/signup/validator/',
-			{
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify(formValue),
-			}
-		);
+		try {
+			const response = await fetch(
+				'https://deployasslink.pythonanywhere.com/auth/login/validator/',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					credentials: 'include',
+					body: JSON.stringify(formValue),
+				}
+			);
+			console.log(await response.json());
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -48,7 +53,7 @@ export default function Login() {
 						</div>
 						<div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
 							<div className='card-body'>
-								<form onSubmit={submit} method='POST'>
+								<form action='api/login' method='POST'>
 									<FormInput
 										label='email'
 										type='email'
