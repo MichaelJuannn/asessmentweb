@@ -17,7 +17,6 @@ export default async function handler(
 	const userJson = await response.json();
 	if (!response.ok) return res.redirect('/login?isError=1');
 
-	res.setHeader('Set-Cookie', userJson.tokens.access);
-	console.log(userJson.tokens.access);
-	res.redirect('/dashboard');
+	res.setHeader('Set-Cookie', 'access=' + userJson.tokens.access);
+	res.redirect(`/dashboard?bearer=${userJson.tokens.access}`);
 }
