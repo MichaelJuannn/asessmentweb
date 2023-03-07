@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { SyntheticEvent, useState } from 'react';
-import { FormInput } from './components/form';
+import { FormInput } from '../components/form';
 
 interface NewValue {
 	[key: string]: string;

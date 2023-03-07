@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { SyntheticEvent, useState } from 'react';
-import { FormInput } from './components/form';
+import { FormInput } from '@/components/form';
 
 interface NewValue {
 	[key: string]: string;
@@ -17,7 +17,6 @@ export default function Login() {
 	};
 	const submit = async (e: SyntheticEvent) => {
 		e.preventDefault();
-		console.log('submit func');
 
 		try {
 			const response = await fetch(
@@ -31,7 +30,6 @@ export default function Login() {
 					body: JSON.stringify(formValue),
 				}
 			);
-			console.log(await response.json());
 		} catch (error) {
 			console.log(error);
 		}
