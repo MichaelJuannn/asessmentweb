@@ -10,7 +10,15 @@ export default function Dashboard({
 }) {
 	if (error) return <ErrorPage msg={error} />;
 	const notAnswered: string[] = question.not_yet_answered;
-	const answered: string[] = question.already_answered;
+	const [comment, setComment] = useState('');
+	const [type, setType] = useState('');
+	const handleComment = (formbody: string) => {
+		setComment(formbody);
+	};
+	const handleType = (formbody: string) => {
+		setType(formbody);
+	};
+	console.log(type + comment);
 	return (
 		<>
 			<div className='flex items-center p-2 w-full bg-main'>
@@ -23,7 +31,9 @@ export default function Dashboard({
 					return (
 						<div key={index} className='inline-block m-4'>
 							<QuestionBox
-								index={index}
+								handleComment={handleComment}
+								handleType={handleType}
+								id={element.id}
 								question={element.text_question}
 								validator={element.validator}
 							/>
@@ -60,22 +70,30 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	};
 };
 
-function QuestionBox({ question, validator, index }: any) {
+function QuestionBox({
+	question,
+	validator,
+	id,
+	handleComment,
+	handleType,
+}: any) {
 	return (
 		<>
 			<div className='card w-96 bg-base-300 shadow-xl'>
 				<div className='card-body'>
-					<h2 className='card-title'>{validator}</h2>
+					<h2 className='card-title'>
+						{id} {validator}
+					</h2>
 					<p>{question}</p>
 					<div className='card-actions justify-end'>
-						<label htmlFor={index} className='btn btn-primary'>
+						<label htmlFor={id} className='btn btn-primary'>
 							answer
 						</label>
 					</div>
 				</div>
 			</div>
 			<div>
-				<input type='checkbox' id={index} className='modal-toggle' />
+				<input type='checkbox' id={id} className='modal-toggle' />
 				<div className='modal'>
 					<div className='modal-box'>
 						<h3 className='font-bold text-lg'>{validator}</h3>
@@ -83,9 +101,23 @@ function QuestionBox({ question, validator, index }: any) {
 						<input
 							type='text'
 							className='input input-bordered w-full max-w-xs'
+							onChange={(e) => handleComment(e.target.value)}
 						/>
+						<select
+							className='select select-bordered w-full max-w-xs mt-5'
+							onChange={(e) => handleType(e.target.value)}
+							defaultValue='Type'
+						>
+							<option disabled value='Type'>
+								Type
+							</option>
+							<option value={'C1_Faktual'}>C1_Faktual</option>
+							<option value={'C2_Faktual'}>C2_Faktual</option>
+							<option value={'C3_Faktual'}>C3_Faktual</option>
+							<option value={'C4_Faktual'}>C4_Faktual</option>
+						</select>
 						<div className='modal-action'>
-							<label htmlFor={index} className='btn'>
+							<label htmlFor={id} className='btn'>
 								Answer
 							</label>
 						</div>
