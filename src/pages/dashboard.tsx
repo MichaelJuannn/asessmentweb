@@ -35,7 +35,6 @@ export default function Dashboard({
 		);
 		router.reload();
 	};
-	console.log(type + comment);
 	return (
 		<>
 			<div className='flex items-center p-2 w-full bg-main'>
