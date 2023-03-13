@@ -2,18 +2,36 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState, ReactNode } from 'react';
 
-export default function Dashboard({
-	question,
-	error,
-}: {
-	question: any;
+interface Question {
+	id: string;
+	text_question: string;
+	answered: boolean;
+	validator: string;
+}
+interface DashboardProps {
+	question: {
+		already_answered: Question[];
+		not_yet_answered: Question[];
+	};
 	error?: string;
-}) {
+}
+
+interface QuestionBoxProps {
+	handleComment: (formbody: string) => void;
+	handleType: (formbody: string) => void;
+	submit: (id: string) => void;
+	id: string;
+	question: string;
+	validator: string;
+}
+
+export default function Dashboard({ question, error }: DashboardProps) {
 	if (error) return <ErrorPage msg={error} />;
+	console.log(question);
 	const [comment, setComment] = useState('');
 	const [type, setType] = useState('');
 	const router = useRouter();
-	const notAnswered: string[] = question.not_yet_answered;
+	const notAnswered = question.not_yet_answered;
 	const handleComment = (formbody: string) => {
 		setComment(formbody);
 	};
@@ -94,7 +112,7 @@ function QuestionBox({
 	handleComment,
 	handleType,
 	submit,
-}: any) {
+}: QuestionBoxProps) {
 	return (
 		<>
 			<div className='card w-96 bg-base-300 shadow-xl'>
