@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { useState, ReactNode } from 'react';
 
 export default function Dashboard({
@@ -9,14 +10,30 @@ export default function Dashboard({
 	error?: string;
 }) {
 	if (error) return <ErrorPage msg={error} />;
-	const notAnswered: string[] = question.not_yet_answered;
 	const [comment, setComment] = useState('');
 	const [type, setType] = useState('');
+	const router = useRouter();
+	const notAnswered: string[] = question.not_yet_answered;
 	const handleComment = (formbody: string) => {
 		setComment(formbody);
 	};
 	const handleType = (formbody: string) => {
 		setType(formbody);
+	};
+	const submit = async (id: string) => {
+		const payload = { comment: comment, type: type };
+		const answer = await fetch(
+			`https://deployasslink.pythonanywhere.com/api/jawab/${id}/`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + router.query.bearer,
+				},
+				body: JSON.stringify(payload),
+			}
+		);
+		router.reload();
 	};
 	console.log(type + comment);
 	return (
@@ -36,6 +53,7 @@ export default function Dashboard({
 								id={element.id}
 								question={element.text_question}
 								validator={element.validator}
+								submit={submit}
 							/>
 						</div>
 					);
@@ -76,6 +94,7 @@ function QuestionBox({
 	id,
 	handleComment,
 	handleType,
+	submit,
 }: any) {
 	return (
 		<>
@@ -115,10 +134,30 @@ function QuestionBox({
 							<option value={'C2_Faktual'}>C2_Faktual</option>
 							<option value={'C3_Faktual'}>C3_Faktual</option>
 							<option value={'C4_Faktual'}>C4_Faktual</option>
+							<option value={'C4_Faktual'}>C5_Faktual</option>
+							<option value={'C4_Faktual'}>C6_Faktual</option>
+							<option value={'C4_Faktual'}>C1_Konseptual</option>
+							<option value={'C4_Faktual'}>C2_Konseptual</option>
+							<option value={'C4_Faktual'}>C3_Konseptual</option>
+							<option value={'C4_Faktual'}>C4_Konseptual</option>
+							<option value={'C4_Faktual'}>C5_Konseptual</option>
+							<option value={'C4_Faktual'}>C6_Konseptual</option>
+							<option value={'C4_Faktual'}>C1_Proseural</option>
+							<option value={'C4_Faktual'}>C2_Proseural</option>
+							<option value={'C4_Faktual'}>C3_Proseural</option>
+							<option value={'C4_Faktual'}>C4_Proseural</option>
+							<option value={'C4_Faktual'}>C5_Proseural</option>
+							<option value={'C4_Faktual'}>C6_Proseural</option>
+							<option value={'C4_Faktual'}>C1_Metakognitif</option>
+							<option value={'C4_Faktual'}>C2_Metakognitif</option>
+							<option value={'C4_Faktual'}>C3_Metakognitif</option>
+							<option value={'C4_Faktual'}>C4_Metakognitif</option>
+							<option value={'C4_Faktual'}>C5_Metakognitif</option>
+							<option value={'C4_Faktual'}>C6_Metakognitif</option>
 						</select>
 						<div className='modal-action'>
 							<label htmlFor={id} className='btn'>
-								Answer
+								<button onClick={() => submit(id)}>Answer</button>
 							</label>
 						</div>
 					</div>
